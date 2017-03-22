@@ -1,0 +1,40 @@
+必须下载安装 ui.select2 select2(多选）
+module中配置 ui.select2
+1、 主界面 控制器中定义了name变量
+
+<div>
+    {{$ctrl.name}}
+    <select-component hero="$ctrl.name"></select-component>
+</div>
+2、 子界面component
+
+app.component("selectComponent", {
+    restrict: 'E',
+    bindings: {
+        hero: '='
+    },
+    templateUrl: './select.html',
+    controller: SelectController
+});
+3、子界面controller
+
+class SelectController {
+    constructor() {
+        "ngInject";
+        // 初始化选择的值为空
+        this.hero = "";
+        this.groupSetup = {
+            multiple: true,
+            formatSearching: '查询内容',
+            formatNoMatches: '请选择'
+        };
+    }
+}
+4、子界面
+
+<select ui-select2="$ctrl.groupSetup" ng-model="$ctrl.hero" data-placeholder="选择" multiple="multiple">
+    <option value=""></option>
+    <option value="one">First</option>
+    <option value="two">Second</option>
+    <option value="three">Third</option>
+</select>
